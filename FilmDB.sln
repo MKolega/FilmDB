@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmDB", "FilmDB\FilmDB.csproj", "{19218B53-9474-4292-8A68-760C3298F4C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmDB.Web", "FilmDB\FilmDB.Web.csproj", "{19218B53-9474-4292-8A68-760C3298F4C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmDB.Model", "FilmDB.Model\FilmDB.Model.csproj", "{E29F628A-7325-4240-9136-BBABAA926F41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmDB.Model", "FilmDB.Model\FilmDB.Model.csproj", "{E29F628A-7325-4240-9136-BBABAA926F41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmDB.DAL", "FilmDB.DAL\FilmDB.DAL.csproj", "{2D4B21CD-CFCC-4D68-B0B6-A96204C29DD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmDB.DAL", "FilmDB.DAL\FilmDB.DAL.csproj", "{2D4B21CD-CFCC-4D68-B0B6-A96204C29DD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

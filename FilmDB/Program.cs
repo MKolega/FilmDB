@@ -1,3 +1,4 @@
+using FilmDB.DAL;
 using FilmDB.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddDbContext<FilmDbContext>(options =>
+ options.UseSqlServer(
+ builder.Configuration.GetConnectionString("FilmDbContext"),
+ opt => opt.MigrationsAssembly("FilmDB.DAL")));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
