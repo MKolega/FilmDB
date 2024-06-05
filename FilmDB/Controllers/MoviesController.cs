@@ -1,6 +1,7 @@
 ﻿
 using FilmDB.DAL;
 using FilmDB.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmDB.Web.Controllers
@@ -22,6 +23,44 @@ namespace FilmDB.Web.Controllers
             return View(movie);
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult Create(Movies movie)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbContext.Movies.Add(movie);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(movie);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var model = _dbContext.Movies.FirstOrDefault(m => m.ID == id);
+           
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditPost(int id)
+        {
+            var client = _dbContext.Movies.Single(m => m.ID == id);
+            var ok = await this.TryUpdateModelAsync(client);
+
+            if (ok && this.ModelState.IsValid)
+            {
+                _dbContext.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+
+            
+            return View();
+        }
     }
 }
