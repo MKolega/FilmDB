@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmDB", "FilmDB\FilmDB.csproj", "{19218B53-9474-4292-8A68-760C3298F4C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmDB", "FilmDB\FilmDB.csproj", "{19218B53-9474-4292-8A68-760C3298F4C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmDB.Model", "FilmDB.Model\FilmDB.Model.csproj", "{E29F628A-7325-4240-9136-BBABAA926F41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmDB.DAL", "FilmDB.DAL\FilmDB.DAL.csproj", "{2D4B21CD-CFCC-4D68-B0B6-A96204C29DD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{19218B53-9474-4292-8A68-760C3298F4C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19218B53-9474-4292-8A68-760C3298F4C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19218B53-9474-4292-8A68-760C3298F4C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E29F628A-7325-4240-9136-BBABAA926F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E29F628A-7325-4240-9136-BBABAA926F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E29F628A-7325-4240-9136-BBABAA926F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E29F628A-7325-4240-9136-BBABAA926F41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D4B21CD-CFCC-4D68-B0B6-A96204C29DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4B21CD-CFCC-4D68-B0B6-A96204C29DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4B21CD-CFCC-4D68-B0B6-A96204C29DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4B21CD-CFCC-4D68-B0B6-A96204C29DD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
