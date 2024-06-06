@@ -3,6 +3,8 @@ using FilmDB.DAL;
 using FilmDB.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FilmDB.Web.Controllers
 {
@@ -17,15 +19,17 @@ namespace FilmDB.Web.Controllers
         public IActionResult Details(int? id = null)
         {
             var movie = _dbContext.Movies
-                .Where(p => p.ID == id)
+                .Include(m => m.Director)
+                .Where(m => m.ID == id)
                 .FirstOrDefault();
 
             return View(movie);
         }
-
-        public IActionResult Create()
+		
+		public IActionResult Create()
         {
-            return View();
+			this.FillDropdownValues();
+			return View();
         }
 
         [HttpPost]
@@ -37,14 +41,15 @@ namespace FilmDB.Web.Controllers
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
+            this.FillDropdownValues();
             return View(movie);
         }
 
         public IActionResult Edit(int id)
         {
             var model = _dbContext.Movies.FirstOrDefault(m => m.ID == id);
-           
-            return View(model);
+			this.FillDropdownValues();
+			return View(model);
         }
 
         [HttpPost]
@@ -59,8 +64,38 @@ namespace FilmDB.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            
+            this.FillDropdownValues();
             return View();
         }
-    }
+		private void FillDropdownValues()
+		{
+			var selectItems = new List<SelectListItem>();
+
+			//Polje je opcionalno
+			var listItem = new SelectListItem();
+			listItem.Text = "- Choose -";
+			listItem.Value = "";
+			selectItems.Add(listItem);
+
+			// Add genres to the list
+			selectItems.Add(new SelectListItem("Action", "Action"));
+			selectItems.Add(new SelectListItem("Horror", "Horror"));
+			selectItems.Add(new SelectListItem("Thriller", "Thriller"));
+			selectItems.Add(new SelectListItem("Romance", "Romance"));
+			selectItems.Add(new SelectListItem("Drama", "Drama"));
+			selectItems.Add(new SelectListItem("Comedy", "Comedy"));
+          
+			foreach (var category in _dbContext.Movies)
+			{
+				if (!selectItems.Any(item => item.Value == category.Genre))
+				{
+					listItem = new SelectListItem(category.Genre, category.ID.ToString());
+					selectItems.Add(listItem);
+				}
+			}
+
+			ViewBag.PossibleGenres = selectItems;
+		}
+
+	}
 }

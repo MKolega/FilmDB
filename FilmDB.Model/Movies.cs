@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FilmDB.Model
 {
@@ -13,8 +14,12 @@ namespace FilmDB.Model
 
         public string Image { get; set; }
         public string Genre { get; set; }
-        public string Director { get; set; }
-        public int Year { get; set; }
+		public int Year { get; set; }
+
+        [ForeignKey(nameof(Director))]
+		public int? DirectorID { get; set; }
+        public Director? Director { get; set; }
+      
        
     }
 }
