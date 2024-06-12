@@ -19,7 +19,19 @@ builder.Services.AddDbContext<FilmDbContext>(options =>
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+var services = builder.Services;
+var configuration = builder.Configuration;
 
+services.AddAuthentication().AddGoogle(googleOptions =>
+{
+#pragma warning disable CS8601 // Possible null reference assignment.
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+#pragma warning disable CS8601 // Possible null reference assignment.
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+#pragma warning restore CS8601 // Possible null reference assignment.
+});
 
 var app = builder.Build();
 
