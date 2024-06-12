@@ -1,5 +1,6 @@
 using FilmDB.DAL;
 using FilmDB.Data;
+using FilmDB.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +16,22 @@ builder.Services.AddDbContext<FilmDbContext>(options =>
  builder.Configuration.GetConnectionString("FilmDbContext"),
  opt => opt.MigrationsAssembly("FilmDB.DAL")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+var services = builder.Services;
+var configuration = builder.Configuration;
+
+services.AddAuthentication().AddGoogle(googleOptions =>
+{
+#pragma warning disable CS8601 // Possible null reference assignment.
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+#pragma warning disable CS8601 // Possible null reference assignment.
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+#pragma warning restore CS8601 // Possible null reference assignment.
+});
 
 var app = builder.Build();
 

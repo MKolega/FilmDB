@@ -10,10 +10,13 @@ namespace FilmDB.Model
 
         [Required]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
-
+        [Required]
         public string Image { get; set; }
+        [Required]
         public string Genre { get; set; }
+        [Required]
 		public int Year { get; set; }
 
         [ForeignKey(nameof(Director))]
