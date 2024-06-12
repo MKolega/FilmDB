@@ -1,9 +1,10 @@
 ﻿
 using FilmDB.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace FilmDB.DAL
 {
-    public class FilmDbContext : DbContext
+    public class FilmDbContext : IdentityDbContext<AppUser>
     {
         public FilmDbContext() { }
         public FilmDbContext(DbContextOptions<FilmDbContext> options) : base(options)
@@ -11,6 +12,7 @@ namespace FilmDB.DAL
         }
         public DbSet<Movies> Movies { get; set; }
         public DbSet<Director> Director { get; set; }
+        public DbSet<AppUser> AppUser { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
