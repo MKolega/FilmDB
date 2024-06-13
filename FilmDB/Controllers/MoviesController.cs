@@ -38,6 +38,7 @@ namespace FilmDB.Web.Controllers
             if (ModelState.IsValid)
             {
                 _dbContext.Movies.Add(movie);
+               
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -45,33 +46,59 @@ namespace FilmDB.Web.Controllers
             return View(movie);
         }
 
+        [ActionName(nameof(Edit))]
         public IActionResult Edit(int id)
         {
-            var model = _dbContext.Movies.FirstOrDefault(m => m.ID == id);
+            var model = _dbContext.Movies
+                .Include(m => m.Director)
+                .Where(m => m.ID == id)
+                .FirstOrDefault();
+
 			this.FillDropdownValues();
 			return View(model);
         }
 
         [HttpPost]
+        [ActionName(nameof(Edit))]
+
         public async Task<IActionResult> EditPost(int id)
         {
-            var client = _dbContext.Movies.Single(m => m.ID == id);
-            var ok = await this.TryUpdateModelAsync(client);
+            var movie = _dbContext.Movies
+                .Include(m => m.Director)
+                .Where(m => m.ID == id)
+                .Single();
+            var ok = await this.TryUpdateModelAsync(movie);
 
             if (ok && this.ModelState.IsValid)
             {
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-
+            
             this.FillDropdownValues();
             return View();
         }
+
+        [ActionName(nameof(Delete))]
+        public async Task<IActionResult> Delete(int id)
+        {
+           
+                var movie = _dbContext.Movies.Single(m => m.ID == id);
+                var ok = await this.TryUpdateModelAsync(movie);
+              
+                    _dbContext.Movies.Remove(movie);
+                    _dbContext.SaveChanges();
+                    return RedirectToAction("Index");
+               
+        }
+
+   
+       
 		private void FillDropdownValues()
 		{
 			var selectItems = new List<SelectListItem>();
 
-			//Polje je opcionalno
+			
 			var listItem = new SelectListItem();
 			listItem.Text = "- Choose -";
 			listItem.Value = "";
@@ -95,7 +122,25 @@ namespace FilmDB.Web.Controllers
 			}
 
 			ViewBag.PossibleGenres = selectItems;
-		}
+            var selectDirectors = new List<SelectListItem>();
+
+
+           
+            listItem.Text = "- Choose -";
+            listItem.Value = "";
+            selectDirectors.Add(listItem);
+            foreach (var director in _dbContext.Director)
+            {
+                if (!selectDirectors.Any(item => item.Value == director.Name))
+                {
+                    listItem = new SelectListItem(director.Name, director.ID.ToString());
+                    selectDirectors.Add(listItem);
+                }
+             
+            }
+
+            ViewBag.PossibleDirectors = selectDirectors;
+        }
 
 	}
 }

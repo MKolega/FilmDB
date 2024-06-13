@@ -14,8 +14,8 @@ namespace FilmDB.Model
 		public int ID { get; set; }
 		[Required]
 		public string Name { get; set; }
-		public string Bio { get; set; }
-		public string Image { get; set; }
+		public string? Bio { get; set; }
+		public string? Image { get; set; }
 
 		public ICollection<Movies>? Movies { get; set; }
 		

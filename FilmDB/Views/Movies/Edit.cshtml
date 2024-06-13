@@ -15,6 +15,11 @@
 	<div class="col-md-4">
 		<form asp-action="Edit">
 			<input type="hidden" asp-for="ID" />
+			<div class="form-group">
+				<label class="control-label">Director</label>
+				<select asp-for="Director.Name" asp-items="ViewBag.PossibleDirectors" class="form-control"></select>
+				<span asp-validation-for="Director.Name" class="text-danger"></span>
+			</div>
 			<partial name="_CreateOrEdit" />
 		</form>
 	</div>
