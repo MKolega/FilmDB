@@ -17,8 +17,8 @@
 			<input type="hidden" asp-for="ID" />
 			<div class="form-group">
 				<label class="control-label">Director</label>
-				<select asp-for="Director.Name" asp-items="ViewBag.PossibleDirectors" class="form-control"></select>
-				<span asp-validation-for="Director.Name" class="text-danger"></span>
+				<select asp-for="DirectorID" asp-items="ViewBag.PossibleDirectors" class="form-control"></select>
+				<span asp-validation-for="DirectorID" class="text-danger"></span>
 			</div>
 			<partial name="_CreateOrEdit" />
 		</form>
