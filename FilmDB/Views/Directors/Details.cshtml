@@ -1,28 +1,35 @@
-﻿@model FilmDB.Model.Movies
+﻿
+@model FilmDB.Model.Director
 @{
     ViewData["Title"] = "Details";
 }
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-action="Index">Movies</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Directors</a></li>
         <li class="breadcrumb-item active" aria-current="page">Details</li>
     </ol>
 </nav>
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <img class="card-img-top" src="@Model.Image" alt="@Model.Title">
+            <img class="card-img-top" src="@Model.Image" alt="@Model.Name">
         </div>
         <div class="col-md-8">
-            <h2>@Model.Title</h2>
+            <h2>@Model.Name</h2>
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3>@Model.Description</h3>
-                            <h3>Director: <a asp-action="Details" asp-controller="Directors" asp-route-id="@Model.Director.ID">@Model.Director.Name</a></h3>
-                            <h3>Genre: @Model.Genre</h3>
-                            <h3>Release Date: @Model.Year</h3>
+                            <h3>@Model.Bio</h3>                           
+                            <h3>List of movies:</h3>
+                            <ul>
+                                @foreach (var movie in Model.Movies)
+                                {
+                                    <li>
+                                        <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.ID">@movie.Title</a>
+                                    </li>
+                                }
+                            </ul>
                             <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-success">Edit</a>
                             <a asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-danger">Delete</a>
                         </div>

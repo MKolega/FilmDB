@@ -37,6 +37,14 @@ namespace FilmDB.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach (var director in _dbContext.Director)
+                {
+                    if (director.Name == movie.Director.Name)
+                    {
+                        movie.Director = director;
+                        break;
+                    }
+                }
                 _dbContext.Movies.Add(movie);
                
                 _dbContext.SaveChanges();
