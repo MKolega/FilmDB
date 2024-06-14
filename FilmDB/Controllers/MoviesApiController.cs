@@ -56,6 +56,9 @@ namespace FilmDB.Web.Controllers
 
 			movie.Title = model.Title;
 			movie.Description = model.Description;
+			movie.Image = model.Image;
+			movie.Genre = model.Genre;
+			movie.Year = model.Year;
 			movie.DirectorID = model.DirectorID;
 
 			try
